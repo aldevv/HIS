@@ -1,24 +1,28 @@
-var User = require('../models/user');
+var User = require("../models/user");
+const { Op } = require("sequelize");
 
-// Display existent users
-exports.list_users = function(req, res) {
-  res.render('index', { title: 'App running' });
-};
-
-//Create a new user
-exports.create_user = async function(req,res) {
+exports.list_users = async function (req, res) {
   const users = await User.findAll();
-  console.log(users.every(user => user instanceof User)); // true
   console.log("All users:", JSON.stringify(users, null, 2));
+  res.render("index", { title: "App running" });
 };
 
-//Delete a specific user
-exports.delete_user = function(req,res) {
-  res.send('NOT IMPLEMENTED: User Deletion')
+exports.create_user = async function (req, res) {
+  const user = await User.create(req.body);
+  res.send("Hello world");
 };
 
-//Update Specific User
-exports.update_user =function(req,res) {
-  res.send('NOT IMPLEMENTED: User Updated')
+exports.delete_user = async function (req, res) {
+  const user = await User.destroy({
+    where: {
+      id: {
+        [Op.or]: [req.params.id],
+      },
+    },
+  });
+  res.send("Hello world");
 };
 
+exports.update_user = function (req, res) {
+  res.send("NOT IMPLEMENTED: User Updated");
+};
