@@ -8,21 +8,6 @@ var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var patientRouter = require("./routes/patient");
 
-// external apps
-require("dotenv").config();
-
-
-// orm
-const { Sequelize } = require("sequelize");
-const db_server = process.env.DB_SERVER;
-const db_port = process.env.DB_PORT;
-const db_name = process.env.DB_NAME;
-const db_username = process.env.DB_USERNAME;
-const db_password = process.env.DB_PASSWORD;
-const sequelize = new Sequelize(
-  `postgres://${db_username}:${db_password}@${db_server}:${db_port}/${db_server}`
-);
-
 var app = express();
 
 // view engine setup
