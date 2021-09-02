@@ -11,6 +11,7 @@ var patientRouter = require("./routes/patient");
 // external apps
 require("dotenv").config();
 
+
 // orm
 const { Sequelize } = require("sequelize");
 const db_server = process.env.DB_SERVER;
