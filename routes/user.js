@@ -9,6 +9,6 @@ router.post("/create", user_controller.create_user);
 
 router.delete("/:id/delete", user_controller.delete_user);
 
-router.get("/:id/update", user_controller.delete_user);
+router.patch("/:id/update", user_controller.update_user);
 
 module.exports = router;
