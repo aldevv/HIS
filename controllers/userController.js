@@ -1,5 +1,4 @@
 var User = require("../models/user");
-const { Op } = require("sequelize");
 
 exports.list_users = async function (req, res) {
   const users = await User.findAll();
@@ -15,14 +14,17 @@ exports.create_user = async function (req, res) {
 exports.delete_user = async function (req, res) {
   const user = await User.destroy({
     where: {
-      id: {
-        [Op.or]: [req.params.id],
-      },
+      id: req.params.id,
     },
   });
   res.send("Hello world");
 };
 
-exports.update_user = function (req, res) {
-  res.send("NOT IMPLEMENTED: User Updated");
+exports.update_user = async function (req, res) {
+  var user = await User.update(req.body, {
+    where: {
+      id: req.params.id,
+    },
+  });
+  res.send("Dale Duro Beibi");
 };
