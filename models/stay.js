@@ -1,8 +1,8 @@
 var { sequelize, DataTypes, Model } = require("./common");
 
-class User extends Model {}
+class Stay extends Model {}
 
-User.init(
+Stay.init(
   {
     // Model attributes are defined here
     id: {
@@ -32,8 +32,8 @@ User.init(
   {
     // Other model options go here
     sequelize, // We need to pass the connection instance
-    modelName: "User", // We need to choose the model name
+    modelName: "Stay", // We need to choose the model name
   }
 );
 
-module.exports = User;
+module.exports = Stay;
