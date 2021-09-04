@@ -2,8 +2,8 @@ var User = require("../models/user");
 
 exports.list_users = async function (req, res) {
   const users = await User.findAll();
-  console.log("All users:", JSON.stringify(users, null, 2));
-  res.render("index", { title: "Users", users});
+  //console.log("All users:", JSON.stringify(users, null, 2));
+  res.render("Users", { title: "Users", users});
 };
 
 exports.create_user = async function (req, res) {
