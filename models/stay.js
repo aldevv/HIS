@@ -7,8 +7,8 @@ Stay.init(
     // Model attributes are defined here
     id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
       primaryKey: true,
+      autoIncrement: true,
     },
     admittedDate: {
       type: DataTypes.DATE,

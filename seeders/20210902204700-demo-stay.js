@@ -15,9 +15,9 @@ const users = [...Array(100)].map((user) => ({
 }));
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert("Stay", users, {});
+    return queryInterface.bulkInsert("Stays", users, {});
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete("Stay", null, {});
+    return queryInterface.bulkDelete("Stays", null, {});
   },
 };
