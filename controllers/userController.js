@@ -1,14 +1,17 @@
 var User = require("../models/user");
 
 exports.list_users = async function (req, res) {
-  const users = await User.findAll();
-  //console.log("All users:", JSON.stringify(users, null, 2));
+  const users = await User.findAndCountAll({
+    limit: 5,
+    offset: (req.query.page - 1) * 5
+  });
+  console.log("users:", JSON.stringify(users, null, 2));
   res.render("Users", { title: "Users", users});
 };
 
 exports.create_user = async function (req, res) {
   const user = await User.create(req.body);
-  res.send("Hello world");
+  res.send("Created User");
 };
 
 exports.delete_user = async function (req, res) {
