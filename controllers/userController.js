@@ -1,12 +1,12 @@
 var User = require("../models/user");
 
 exports.list_users = async function (req, res) {
+  const page = req.query.page == NaN ? req.query.page : 1;
   const users = await User.findAndCountAll({
     limit: 5,
-    offset: (req.query.page - 1) * 5
+    offset: (page - 1) * 5,
   });
-  console.log("users:", JSON.stringify(users, null, 2));
-  res.render("Users", { title: "Users", users});
+  res.render("Users", { title: "Users", users });
 };
 
 exports.create_user = async function (req, res) {
@@ -24,6 +24,7 @@ exports.delete_user = async function (req, res) {
 };
 
 exports.update_user = async function (req, res) {
+  console.log("mi request llego sano y salvo: ", req.body);
   var user = await User.update(req.body, {
     where: {
       id: req.params.id,
