@@ -15,7 +15,7 @@ block content
             .col-sm-6
               a.btn.btn-success(href="#addUserModal",data-toggle='modal')<i class='material-icons'>&#xE147;</i> <span>Add New Employee</span>
               a.btn.btn-danger(href='#deleteUserModal',data-toggle='modal')<i class='material-icons'>&#xE15C;</i> <span>Delete</span>
-        table#userTable.table.table-striped.table-bordered.table-sm
+        table.table.table-striped.table-bordered.table-sm(id="user-table")
           thead
             tr
               th
@@ -118,7 +118,7 @@ block content
 
           .modal-footer
             a.btn.btn-default(data-dismiss='modal') Cancel
-            a.btn.btn-danger Delete
+            a.btn.btn-danger(id="delete-button") Delete
   script. 
     $(document).ready(function(){
       // Activate tooltip
@@ -160,3 +160,27 @@ block content
         });
       })
     })
+  script. 
+    $('#delete-button').click(function(event) {
+      var result = $("tr:has(:checked)")
+      var table = result.map(function () {
+          return [$(this).children().slice(1).map(function () {
+              return $(this).text().trim()
+          }).get()]
+      }).get()
+      var json = []
+      console.log(table[0][0])
+      if (table[0][0] == "ID"){
+        var conTable = 1
+        var tableLength = table.length - 1
+      }
+      else {
+        var conTable = 0
+        var tableLength = table.length
+      }
+      for (var x = 0; x < tableLength; x++) {
+        json[x] = table[conTable++][0]
+      }
+      console.log(JSON.stringify(json,0,"\t"))
+    })
+
