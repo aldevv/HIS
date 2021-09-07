@@ -4,18 +4,19 @@ $("#editUserModal").on("show.bs.modal", function (event) {
   var button = $(event.relatedTarget);
   var user_id = button.data("id");
   console.log("segundo");
-  $(".btn-info").on("click", (event) => {
+  $("#formEdit").submit((event) => {
     console.log("tercero");
-    console.log($("#formEdit").serialize());
+    // var data = $("#formEdit").serialize();
+    var $inputs = $("#formEdit :input");
+    var values = {};
+    $inputs.each(function () {
+      values[this.name] = $(this).val();
+    });
 
     $.ajax({
       url: `/user/${user_id}/update`,
       type: "patch",
-      data: {
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-      },
+      data: values,
       dataType: "application/json",
     });
   });
