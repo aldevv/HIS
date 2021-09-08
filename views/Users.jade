@@ -15,7 +15,7 @@ block content
             .col-sm-6
               a.btn.btn-success(href="#addUserModal",data-toggle='modal')<i class='material-icons'>&#xE147;</i> <span>Add New Employee</span>
               a.btn.btn-danger(href='#deleteUserModal',data-toggle='modal')<i class='material-icons'>&#xE15C;</i> <span>Delete</span>
-        table#userTable.table.table-striped.table-bordered.table-sm
+        table.table.table-striped.table-bordered.table-sm(id="user-table")
           thead
             tr
               th
@@ -40,9 +40,9 @@ block content
                 td #{user.email}
                 td
                   a.edit(href='#editUserModal',data-toggle='modal') <i class='material-icons' data-toggle='tooltip' title='Edit'>&#xE254;</i>
-                  a.delete(href='#deleteUserModal',data-toggle='modal') <i class='material-icons' data-toggle='tooltip' title='Delete'>&#xE872;</i>
+                  a.delete(href='#deleteUserModal',data-toggle='modal',data-id="#{user.id}") <i class='material-icons' data-toggle='tooltip' title='Delete'>&#xE872;</i>
         .clearfix
-          .hint-text Showing <b>5</b> out of <b>25</b> entries
+          //.hint-text Showing <b>5</b> out of <b>25</b> entries
           ul.pagination
             //li.page-item  <a href='#'class='page-link'>Previous</a>
             - for (var x=1; x<5; x++)
@@ -55,7 +55,7 @@ block content
         .modal-content
           form(action='/user/create', method='post')
             .modal-header
-              h4.modal-title Add Employee</h4>
+              h4.modal-title Add Employee
               button.close(type='button',data-dismiss='modal',aria-hidden='true')&times;
 
             .modal-body
@@ -108,16 +108,104 @@ block content
     #deleteUserModal.modal.fade
       .modal-dialog
         .modal-content
-          form
-            .modal-header
-              h4.modal-title Delete Employee
-              button.close(type='button',data-dismiss='modal',aria-hidden='true')&times;
+          .modal-header
+            h4.modal-title Delete Employee
+            button.close(type='button',data-dismiss='modal',aria-hidden='true')&times;
 
-            .modal-body
-              p Are you sure you want to delete these Records?
-              p.text-warning <small>This action cannot be undone.</small>
+          .modal-body
+            p Are you sure you want to delete these Records?
+            p.text-warning <small>This action cannot be undone.</small>
 
-            .modal-footer
-              input.btn.btn-default(type='button',data-dismiss='modal',value='Cancel')
-              input.btn.btn-danger(type='submit',value='Delete')
+          .modal-footer
+            a.btn.btn-default(data-dismiss='modal') Cancel
+            a.btn.btn-danger(id="delete-button") Delete
+  script. 
+    $(document).ready(function(){
+      // Activate tooltip
+      $('[data-toggle="tooltip"]').tooltip();
+      
+      // Select/Deselect checkboxes
+      var checkbox = $('table tbody input[type="checkbox"]');
+      $("#selectAll").click(function(){
+        if(this.checked){
+          checkbox.each(function(){
+            this.checked = true;                        
+          });
+        } else{
+          checkbox.each(function(){
+            this.checked = false;                        
+          });
+        } 
+      });
+      checkbox.click(function(){
+        if(!this.checked){
+          $("#selectAll").prop("checked", false);
+        }
+      });
+      //-save current state of th navbar
+      //- $('#navbarSupportedContent ul li').removeClass("active");
+      $("#navbarSupportedContent").on("click", "li", function (e) {
+        localStorage.setItem('activeTab', $(this).attr('id'));
+      });
+      var activeTab = localStorage.getItem('activeTab');
+      if(activeTab){
+        var currentTab = '#' + activeTab
+        $('#navbarSupportedContent ul li').removeClass("active");
+        $(currentTab).addClass("active")
+      }
+    });
+  script. 
+    $('#deleteUserModal').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget) // Button that triggered the modal
+      var recipient = button.data('id') // Extract info from data-* attributes
+      $('a').click(function(event) {
+        var result = $("tr:has(:checked)")
+        if(result.length > 0){
+          var table = result.map(function () {
+              return [$(this).children().slice(1).map(function () {
+                  return $(this).text().trim()
+              }).get()]
+          }).get()
+          var users = []
+          if (table[0][0] == "ID"){
+            var conTable = 1
+            var tableLength = table.length - 1
+          }
+          else {
+            var conTable = 0
+            var tableLength = table.length
+          }
+          for (var x = 0; x < tableLength; x++) {
+            users[x] = table[conTable++][0]
+          }
+          users = JSON.stringify(users)
+          $.ajax({
+            url: '/user/delete-multiple-users',
+            type: 'delete',
+            dataType: 'application/json',
+            data: {
+              users
+            },
+            complete: function () {
+                $('#deleteUserModal').modal('hide')
+                location.reload()
+                return false
+            }
+          });
+        }
+        else{
+          $.ajax({
+            url: '/user/' + recipient + '/delete',
+            type: 'delete',
+            dataType: 'application/json',
+            complete: function () {
+                $('#deleteUserModal').modal('hide')
+                location.reload()
+                return false
+            }
+          });
+        }
+      })
+    })
+  
 
