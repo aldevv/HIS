@@ -7,11 +7,16 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
+      UserId: {
+        type: Sequelize.INTEGER, references: { model: 'Users', key: 'id' }
+      },
       admittedDate: {
         type: Sequelize.DATE,
+        allowNull: false,
       },
       exitDate: {
         type: Sequelize.DATE,
+        allowNull: true,
       },
       medicalState: {
         type: Sequelize.ENUM(

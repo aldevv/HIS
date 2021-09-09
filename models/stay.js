@@ -1,5 +1,7 @@
 var { sequelize, DataTypes, Model } = require("./common");
 
+var User = require("./user")
+
 class Stay extends Model {}
 
 Stay.init(
@@ -16,7 +18,7 @@ Stay.init(
     },
     exitDate: {
       type: DataTypes.DATE,
-      // allowNull defaults to true
+      allowNull: true,
     },
     medicalState: {
       type: DataTypes.ENUM(

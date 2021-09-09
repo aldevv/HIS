@@ -6,6 +6,10 @@ router.get("/", stayController.list_stays);
 
 router.post("/create", stayController.create_stay);
 
-router.patch("/change-severity/:id", stayController.change_severity)
+router.delete("/:id/delete", stayController.delete_stay);
+
+router.delete("/delete-multiple-stays", stayController.delete_multiple_stays);
+
+router.patch("/change-severity/:id", stayController.change_severity);
 
 module.exports = router;

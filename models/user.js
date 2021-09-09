@@ -1,5 +1,9 @@
 var { sequelize, DataTypes, Model } = require("./common");
 
+
+var Stay = require("./stay")
+
+
 class User extends Model {}
 
 User.init(
@@ -30,4 +34,6 @@ User.init(
     modelName: "User", // We need to choose the model name
   }
 );
+
+User.hasMany(Stay)
 module.exports = User;

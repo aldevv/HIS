@@ -5,7 +5,7 @@ block title
 block style
   link(rel='stylesheet',href='styles/common.css')
 block personal_js
-  script(src="js/users.js")
+  script(src="js/stays.js")
 block table-title
   h2 Stays <b>List</b>
 block add-entity 
@@ -14,6 +14,7 @@ block remove-entity
   a.btn.btn-danger(href='#deleteModal',data-toggle='modal')<i class='material-icons'>&#xE15C;</i> <span>Delete</span>
 block table-attributes-names      
   th ID
+  th User ID
   th Admitted Date
   th Exit Date
   th Medical State
@@ -25,7 +26,8 @@ block table
         span.custom-checkbox
           input(type='checkbox',id='checkbox#{i}',name='options[]',value='1')
           label(for='checkbox#{i}')
-      td #{stay.id}    
+      td #{stay.id} 
+      td #{stay.UserId}     
       td #{stay.admittedDate}
       td #{stay.exitDate}
       td #{stay.medicalState}  
@@ -47,16 +49,25 @@ block add-edit-modal
           .modal-body
             .form-group
               label Admitted Date
-              input.form-control(type='text',required, name="admittedDate")
+              input.form-control(type='datetime-local',required, name="admittedDate")
+            .form-group
+              label User ID
+              select.form-control.form-select(display="block",aria-label="Default select example",name="UserId")
+                option(selected) Select State
+                each user in users
+                  option(value="#{user.id}") #{user.firstName} #{user.lastName}
             .form-group
               label Exit Date
-              input.form-control(type='text',required, name="exitDate")
-
+              input.form-control(type='datetime-local', name="exitDate")
             .form-group
               label Medical State
-              input.form-control(type='text',required, name="medicalState")
-
-
+              select.form-control.form-select(display="block",aria-label="Default select example",name="medicalState")
+                option(selected) Select State
+                option(value="Resuscitation") Resuscitation
+                option(value="Emergency") Emergency
+                option(value="Urgent") Urgent
+                option(value="Less Urgent") Less Urgent
+                option(value="Not Urgent") Not Urgent    
           .modal-footer
             input.btn.btn-default(type='button',data-dismiss='modal',value='Cancel')
             input.btn.btn-success(type='submit',value='Add')
@@ -71,10 +82,6 @@ block add-edit-modal
 
           .modal-body
             .form-group
-              label Admitted Date
-              input.form-control(type='text',required, name="admittedDate")
-
-            .form-group
               label Exit Date
               input.form-control(type='text',required, name="exitDate")
 
@@ -85,3 +92,5 @@ block add-edit-modal
           .modal-footer
             input.btn.btn-default(type='button',data-dismiss='modal',value='Cancel')
             input.btn.btn-info(type='submit',value='Save')
+block delete-modal-title
+  h4.modal-title Delete Stay
