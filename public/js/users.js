@@ -22,7 +22,7 @@ $(document).ready(function () {
   });
 
   //- delete specific or multiple users
-  $('#deleteUserModal').on('show.bs.modal', function (event) {
+  $('#deleteModal').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget) // Button that triggered the modal
     var recipient = button.data('id') // Extract info from data-* attributes
     $('a').click(function (event) {
@@ -54,7 +54,7 @@ $(document).ready(function () {
             users
           },
           complete: function () {
-            $('#deleteUserModal').modal('hide')
+            $('#deleteModal').modal('hide')
             location.reload()
             return false
           }
@@ -66,7 +66,7 @@ $(document).ready(function () {
           type: 'delete',
           dataType: 'application/json',
           complete: function () {
-            $('#deleteUserModal').modal('hide')
+            $('#deleteModal').modal('hide')
             location.reload()
             return false
           }

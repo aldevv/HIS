@@ -31,6 +31,56 @@ body
                 a.nav-link(href="javascript:void(0);")<i class="fas fa-user"></i>Users
             li.nav-item.active(id="stay-nav-item")
                 a.nav-link(href="javascript:void(0);")<i class="fas fa-hospital"></i> Stays
-  block content
-  block modals
+  .container-xl
+    .table-responsive
+      .table-wrapper
+        .table-title
+          .row
+            .col-sm-6
+              block table-title
+            .col-sm-6
+              block add-entity
+              block remove-entity
+        table.table.table-striped.table-bordered.table-sm(id="table-id")
+          thead
+            tr
+              th
+                span.custom-checkbox
+                  input(type='checkbox',id='selectAll')
+                  label(for='selectAll')   
+              block table-attributes-names    
+          tbody
+            each user,i in users.rows
+              tr
+                td
+                  span.custom-checkbox
+                    input(type='checkbox',id='checkbox#{i}',name='options[]',value='1')
+                    label(for='checkbox#{i}')
+                block table-attributes    
+                td
+                  a.edit(href='#editModal',data-toggle='modal') <i class='material-icons' data-toggle='tooltip' title='Edit'>&#xE254;</i>
+                  block delete-specific-entity
+        .clearfix
+          //.hint-text Showing <b>5</b> out of <b>25</b> entries
+          ul.pagination
+            //li.page-item  <a href='#'class='page-link'>Previous</a>
+            - for (var x=1; x<5; x++)
+              block pagination-numbers
+            //li.page-item <a href='#' class='page-link'>Next</a>
+  block add-edit-modal
+  <!-- Delete Modal HTML -->
+  #deleteModal.modal.fade
+    .modal-dialog
+      .modal-content
+        .modal-header
+          h4.modal-title Delete Employee
+          button.close(type='button',data-dismiss='modal',aria-hidden='true')&times;
+
+        .modal-body
+          p Are you sure you want to delete these Records?
+          p.text-warning <small>This action cannot be undone.</small>
+
+        .modal-footer
+          a.btn.btn-default(data-dismiss='modal') Cancel
+          a.btn.btn-danger(id="delete-button") Delete              
   
