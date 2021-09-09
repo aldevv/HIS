@@ -1,8 +1,8 @@
 extends ./index.jade
 doctype html
-block title 
+block title
   title #{title}
-block style 
+block style
   link(rel='stylesheet',href='styles/users.css')
 block personal_js
   script(src="js/users.js")
@@ -54,35 +54,31 @@ block add-edit-modal
             input.btn.btn-default(type='button',data-dismiss='modal',value='Cancel')
             input.btn.btn-success(type='submit',value='Add')
 
-  <!-- Edit Modal HTML -->
   #editModal.modal.fade
     .modal-dialog
       .modal-content
-        form
+        form#formEdit(action="javascript:void(0);")
           .modal-header
-            h4.modal-title Edit Employee
+            h4.modal-title Edit User
             button.close(type='button',data-dismiss='modal',aria-hidden='true')&times;
 
           .modal-body
             .form-group
-              label Name
-              input.form-control(type='text',required)
+              label First Name
+              input.form-control(type='text',required, name="firstName")
+
+            .form-group
+              label Last Name
+              input.form-control(type='text',required, name="lastName")
 
             .form-group
               label Email
-              input.form-control(type='email',required)
-
-            .form-group
-              label Address
-              textarea.form-control(required)
-
-            .form-group
-              label Phone
-              input.form-control(type='text',required)
+              textarea.form-control(type="email", required, name="email")
 
           .modal-footer
             input.btn.btn-default(type='button',data-dismiss='modal',value='Cancel')
             input.btn.btn-info(type='submit',value='Save')
     
-  
+
+
 

@@ -15,7 +15,7 @@ head
   script(src='https://kit.fontawesome.com/a076d05399.js',crossorigin='anonymous')
   block personal_js
   script(src='js/navbar.js')
-  block style 
+  block style
 
 
 body
@@ -25,7 +25,7 @@ body
     .collapse.navbar-collapse(id="navbarSupportedContent")
         ul.navbar-nav.ml-auto
             .hori-selector
-              .left 
+              .left
               .right
             li.nav-item(id="user-nav-item")
                 a.nav-link(href="javascript:void(0);")<i class="fas fa-user"></i>Users
@@ -58,7 +58,7 @@ body
                     label(for='checkbox#{i}')
                 block table-attributes    
                 td
-                  a.edit(href='#editModal',data-toggle='modal') <i class='material-icons' data-toggle='tooltip' title='Edit'>&#xE254;</i>
+                  a.edit(href='#editModal',data-toggle='modal', data-id='#{user.id}') <i class='material-icons' data-toggle='tooltip' title='Edit'>&#xE254;</i>
                   block delete-specific-entity
         .clearfix
           //.hint-text Showing <b>5</b> out of <b>25</b> entries
