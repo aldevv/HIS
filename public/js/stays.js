@@ -13,7 +13,7 @@ $(document).ready(function () {
       });
 
       $.ajax({
-        url: `/stay/${stay_id}/update`,
+        url: `/stay/${stay_id}/change-severity`,
         type: "patch",
         data: values,
         dataType: "application/json",

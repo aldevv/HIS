@@ -8,7 +8,9 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       UserId: {
-        type: Sequelize.INTEGER, references: { model: 'Users', key: 'id' }
+        type: Sequelize.INTEGER, 
+        onDelete: 'CASCADE', 
+        references: { model: 'Users', key: 'id' },
       },
       admittedDate: {
         type: Sequelize.DATE,

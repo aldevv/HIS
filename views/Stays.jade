@@ -83,11 +83,17 @@ block add-edit-modal
           .modal-body
             .form-group
               label Exit Date
-              input.form-control(type='text',required, name="exitDate")
+              input.form-control(type='datetime-local',required, name="exitDate")
 
             .form-group
               label Medical State
-              textarea.form-control(type="text", required, name="medicalState")
+              select.form-control.form-select(display="block",aria-label="Default select example",name="medicalState")
+                option(selected) Select State
+                option(value="Resuscitation") Resuscitation
+                option(value="Emergency") Emergency
+                option(value="Urgent") Urgent
+                option(value="Less Urgent") Less Urgent
+                option(value="Not Urgent") Not Urgent
 
           .modal-footer
             input.btn.btn-default(type='button',data-dismiss='modal',value='Cancel')

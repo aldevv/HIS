@@ -35,5 +35,5 @@ User.init(
   }
 );
 
-User.hasMany(Stay)
+User.hasMany(Stay,{onDelete: 'CASCADE'});
 module.exports = User;
