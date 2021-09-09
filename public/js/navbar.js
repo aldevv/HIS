@@ -31,7 +31,15 @@ function test() {
 }
 $(document).ready(function () {
   setTimeout(function () { test(); });
+  //- get saved state in case it exists
+  var activeTab = localStorage.getItem('activeTab');
+  if (activeTab) {
+    var currentTab = '#' + activeTab
+    $('#navbarSupportedContent ul li').removeClass("active");
+    $(currentTab).addClass("active")
+  }
 });
+
 $(window).on('resize', function () {
   setTimeout(function () { test(); }, 500);
 });
