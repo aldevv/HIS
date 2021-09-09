@@ -15,6 +15,7 @@ function test() {
   });
   $("#navbarSupportedContent").on("click", "li", function (e) {
     $('#navbarSupportedContent ul li').removeClass("active");
+    localStorage.setItem('activeTab', $(this).attr('id'));
     $(this).addClass('active');
     var activeWidthNewAnimHeight = $(this).innerHeight();
     var activeWidthNewAnimWidth = $(this).innerWidth();

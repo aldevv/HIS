@@ -142,13 +142,9 @@ block content
           $("#selectAll").prop("checked", false);
         }
       });
-      //-save current state of th navbar
-      //- $('#navbarSupportedContent ul li').removeClass("active");
-      $("#navbarSupportedContent").on("click", "li", function (e) {
-        localStorage.setItem('activeTab', $(this).attr('id'));
-      });
+      //- get saved state in case it exists
       var activeTab = localStorage.getItem('activeTab');
-      if(activeTab){
+      if (activeTab) {
         var currentTab = '#' + activeTab
         $('#navbarSupportedContent ul li').removeClass("active");
         $(currentTab).addClass("active")
