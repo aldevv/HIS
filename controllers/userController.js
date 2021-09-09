@@ -9,6 +9,7 @@ exports.list_users = async function (req, res) {
   const users = await User.findAndCountAll({
     limit: 5,
     offset: (page - 1) * 5,
+    order: ['id'],
   });
   //console.log("users:", JSON.stringify(users, null, 2));
   res.render("Users", { title: "Users", users });

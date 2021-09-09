@@ -17,6 +17,11 @@ $(document).ready(function () {
         type: "patch",
         data: values,
         dataType: "application/json",
+        complete: function() {
+          $('#editModal').modal('hide')
+          location.reload()
+          return false
+        }
       });
     });
   });

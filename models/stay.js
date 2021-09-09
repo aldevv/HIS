@@ -30,6 +30,7 @@ Stay.init(
     },
   },
   {
+
     // Other model options go here
     sequelize, // We need to pass the connection instance
     modelName: "Stay", // We need to choose the model name

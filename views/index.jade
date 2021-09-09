@@ -50,16 +50,7 @@ body
                   label(for='selectAll')   
               block table-attributes-names    
           tbody
-            each user,i in users.rows
-              tr
-                td
-                  span.custom-checkbox
-                    input(type='checkbox',id='checkbox#{i}',name='options[]',value='1')
-                    label(for='checkbox#{i}')
-                block table-attributes    
-                td
-                  a.edit(href='#editModal',data-toggle='modal', data-id='#{user.id}') <i class='material-icons' data-toggle='tooltip' title='Edit'>&#xE254;</i>
-                  block delete-specific-entity
+            block table
         .clearfix
           //.hint-text Showing <b>5</b> out of <b>25</b> entries
           ul.pagination

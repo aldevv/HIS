@@ -7,54 +7,54 @@ block style
 block personal_js
   script(src="js/users.js")
 block table-title
-  h2 Users <b>List</b>
+  h2 Stays <b>List</b>
 block add-entity 
-  a.btn.btn-success(href="#addModal",data-toggle='modal')<i class='material-icons'>&#xE147;</i><span>Add New User</span>
+  a.btn.btn-success(href="#addModal",data-toggle='modal')<i class='material-icons'>&#xE147;</i><span>Add New Stay</span>
 block remove-entity
   a.btn.btn-danger(href='#deleteModal',data-toggle='modal')<i class='material-icons'>&#xE15C;</i> <span>Delete</span>
 block table-attributes-names      
   th ID
-  th First Name
-  th Last Name
-  th Email
+  th Admitted Date
+  th Exit Date
+  th Medical State
   th Actions
 block table  
-  each user,i in users.rows
+  each stay,i in stays.rows
     tr
       td
         span.custom-checkbox
           input(type='checkbox',id='checkbox#{i}',name='options[]',value='1')
           label(for='checkbox#{i}')
-      td #{user.id}    
-      td #{user.firstName}
-      td #{user.lastName}
-      td #{user.email}  
+      td #{stay.id}    
+      td #{stay.admittedDate}
+      td #{stay.exitDate}
+      td #{stay.medicalState}  
       td
-        a.edit(href='#editModal',data-toggle='modal', data-id='#{user.id}') <i class='material-icons' data-toggle='tooltip' title='Edit'>&#xE254;</i>
-        a.delete(href='#deleteModal',data-toggle='modal',data-id="#{user.id}") <i class='material-icons' data-toggle='tooltip' title='Delete'>&#xE872;</i>
+        a.edit(href='#editModal',data-toggle='modal', data-id='#{stay.id}') <i class='material-icons' data-toggle='tooltip' title='Edit'>&#xE254;</i>
+        a.delete(href='#deleteModal',data-toggle='modal',data-id="#{stay.id}") <i class='material-icons' data-toggle='tooltip' title='Delete'>&#xE872;</i>
 block pagination-numbers
-  li.page-item  <a href="/user?page=#{x}" class='page-link'>#{x}</a>  
+  li.page-item  <a href="/stay?page=#{x}" class='page-link'>#{x}</a>  
 block add-edit-modal                       
   <!-- Edit Modal HTML -->
   #addModal.modal.fade
     .modal-dialog
       .modal-content
-        form(action='/user/create', method='post')
+        form(action='/stay/create', method='post')
           .modal-header
-            h4.modal-title Add User
+            h4.modal-title Add Stay
             button.close(type='button',data-dismiss='modal',aria-hidden='true')&times;
 
           .modal-body
             .form-group
-              label First Name
-              input.form-control(type='text',required, name="firstName")
+              label Admitted Date
+              input.form-control(type='text',required, name="admittedDate")
             .form-group
-              label Last Name
-              input.form-control(type='text',required, name="lastName")
+              label Exit Date
+              input.form-control(type='text',required, name="exitDate")
 
             .form-group
-              label Email
-              input.form-control(type='email',required, name="email")
+              label Medical State
+              input.form-control(type='text',required, name="medicalState")
 
 
           .modal-footer
@@ -66,26 +66,22 @@ block add-edit-modal
       .modal-content
         form#formEdit(action="javascript:void(0);")
           .modal-header
-            h4.modal-title Edit User
+            h4.modal-title Edit Stay
             button.close(type='button',data-dismiss='modal',aria-hidden='true')&times;
 
           .modal-body
             .form-group
-              label First Name
-              input.form-control(type='text',required, name="firstName")
+              label Admitted Date
+              input.form-control(type='text',required, name="admittedDate")
 
             .form-group
-              label Last Name
-              input.form-control(type='text',required, name="lastName")
+              label Exit Date
+              input.form-control(type='text',required, name="exitDate")
 
             .form-group
-              label Email
-              textarea.form-control(type="email", required, name="email")
+              label Medical State
+              textarea.form-control(type="text", required, name="medicalState")
 
           .modal-footer
             input.btn.btn-default(type='button',data-dismiss='modal',value='Cancel')
             input.btn.btn-info(type='submit',value='Save')
-    
-
-
-
